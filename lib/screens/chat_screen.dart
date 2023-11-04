@@ -51,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendChatGptApi(String message) async {
     final apiKey =
-        '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'; // Replace with your GPT-3 API key.
+        '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'; // Replace with your GPT-3 API key.
     final apiUrl = 'https://api.openai.com/v1/audio/translations';
 
     final response = await http.post(
@@ -93,44 +93,53 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
 
         /// add image chat gpt and remove this icon
-        leading: Icon(
-          Icons.chat,
-          color: Colors.white,
-        ),
+      
         actions: [
-          Icon(
-            Icons.people,
+          PopupMenuButton(
             color: Colors.white,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(child: Text("data")),
+                PopupMenuItem(child: Text("data")),
+                PopupMenuItem(child: Text("data")),
+                PopupMenuItem(child: Text("data"))
+              ];
+            },
           )
         ],
       ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Flexible(
-              child: ListView.builder(
-            reverse: true,
-            itemCount: _messages.length,
-            itemBuilder: (context, index) {
-              return buildMessage(_messages[index]);
-            },
-          )),
-          TextField(
-            controller: textMessageContorller,
-            decoration: InputDecoration(
-                hintText: "Type a message.....",
-                hintStyle: TextStyle(color: Colors.black),
-                suffixIcon: InkWell(
-                  onTap: SendMessage,
-                  child: Icon(
-                    Icons.send,
-                    color: Colors.black,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+                  children: [
+            Flexible(
+                child: ListView.builder(
+              reverse: true,
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                return buildMessage(_messages[index]);
+              },
+            )),
+            TextField(
+              controller: textMessageContorller,
+              decoration: InputDecoration(
+                  hintText: "Type a message.....",
+                  hintStyle: TextStyle(color: Colors.black),
+                  suffixIcon: InkWell(
+                    onTap: SendMessage,
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.black,
+                    ),
                   ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  )),
+            )
+                  ],
                 ),
-                border: OutlineInputBorder()),
-          )
-        ],
-      )),
+          )),
     );
   }
 }
